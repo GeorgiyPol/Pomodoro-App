@@ -15,6 +15,7 @@
 		407BC896283A51AC00100630 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 407BC894283A51AC00100630 /* LaunchScreen.storyboard */; };
 		407BC89E283A560F00100630 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407BC89D283A560F00100630 /* Animation.swift */; };
 		407BC8A0283A564600100630 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407BC89F283A564600100630 /* Extension.swift */; };
+		407BC8A2283A57D200100630 /* alarm_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 407BC8A1283A57D200100630 /* alarm_sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		407BC897283A51AC00100630 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		407BC89D283A560F00100630 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		407BC89F283A564600100630 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		407BC8A1283A57D200100630 /* alarm_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = alarm_sound.mp3; path = "../../../../xCode_Projects /ios apps/bootcampJulyAngela/EggTimer-iOS13/EggTimer/alarm_sound.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				407BC892283A51AC00100630 /* Assets.xcassets */,
 				407BC894283A51AC00100630 /* LaunchScreen.storyboard */,
 				407BC897283A51AC00100630 /* Info.plist */,
+				407BC8A1283A57D200100630 /* alarm_sound.mp3 */,
 			);
 			path = PomodoroApp;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 			files = (
 				407BC896283A51AC00100630 /* LaunchScreen.storyboard in Resources */,
 				407BC893283A51AC00100630 /* Assets.xcassets in Resources */,
+				407BC8A2283A57D200100630 /* alarm_sound.mp3 in Resources */,
 				407BC891283A51AB00100630 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
