@@ -56,6 +56,8 @@ class ViewController: UIViewController, CAAnimationDelegate  {
         super.viewDidLoad()
         
         setConstraints()
+        drawBackLayer(with: backProgressLayer, color: UIColor.gray)
+        drawBackLayer(with: progressLayerWork, color: UIColor.red)
         
         startButton.addTarget(self,
                               action: #selector(startButtonTapped),
@@ -167,42 +169,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     }
     
     
-    func setConstraints() {
-        view.addSubview(startButton)
-        NSLayoutConstraint.activate([
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -350),
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.heightAnchor.constraint(equalToConstant: 30),
-            startButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        view.addSubview(cancelButton)
-        NSLayoutConstraint.activate([
-            cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -410),
-            cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cancelButton.heightAnchor.constraint(equalToConstant: 30),
-            cancelButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        view.addSubview(timerLabel)
-        NSLayoutConstraint.activate([
-            timerLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 350),
-            timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-    }
     
-    func startTimer() {
-        timer  = Timer.scheduledTimer(timeInterval: 1,
-                                      target: self,
-                                      selector: (#selector(updateTimer)),
-                                      userInfo: nil,
-                                      repeats: true)
-    }
     
-    func formatTime() -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        return String(format: "%02i:%02i", minutes, seconds)
-    }
+    
 }
