@@ -36,7 +36,7 @@ extension ViewController {
     }
     
     func startTimer() {
-        timer  = Timer.scheduledTimer(timeInterval: 1,
+        timer  = Timer.scheduledTimer(timeInterval: 0.01,
                                       target: self,
                                       selector: (#selector(updateTimer)),
                                       userInfo: nil,
@@ -44,8 +44,9 @@ extension ViewController {
     }
     
     func formatTime() -> String {
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
+        let timeFactor = Int((time).rounded(.up))
+        let minutes = timeFactor / 60
+        let seconds = timeFactor % 60
         return String(format: "%02i:%02i", minutes, seconds)
     }
     
