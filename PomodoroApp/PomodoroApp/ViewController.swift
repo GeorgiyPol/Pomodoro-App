@@ -42,7 +42,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     var player: AVAudioPlayer! = nil
     var timer = Timer()
     var isTimerStarted = false
-    var time = 10
+    var time: Double = 10
     var isAnimationStarted = false
     var isWorkTime = true
     
@@ -111,9 +111,9 @@ class ViewController: UIViewController, CAAnimationDelegate  {
             cancelButton.alpha = 0.5
             
             timer.invalidate()
-            time = 5
+            time = 10
             isTimerStarted = false
-            timerLabel.text = "00:05"
+            timerLabel.text = "00:10"
             startButton.setImage(UIImage(systemName: "play"), for: .normal)
             startButton.tintColor = UIColor.red
             drawBackLayer(with: progressLayerWork, color: UIColor.red)
@@ -134,7 +134,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     }
     
     @objc func updateTimer() {
-        if time < 1 && !isWorkTime {
+        if time <= 0 && !isWorkTime {
             startButton.setImage(UIImage(systemName: "play"), for: .normal)
             startButton.tintColor = UIColor.red
             cancelButton.tintColor = UIColor.red
@@ -148,7 +148,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
             drawBackLayer(with: progressLayerWork, color: UIColor.red)
             isAnimationStarted = false
             music()
-        } else if time < 1 {
+        } else if time <= 0 {
             startButton.setImage(UIImage(systemName: "play"), for: .normal)
             startButton.tintColor = UIColor.green
             time = 5
@@ -163,7 +163,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
             isAnimationStarted = false
             music()
         } else {
-            time -= 1
+            time -= 0.01
             timerLabel.text = formatTime()
         }
     }
