@@ -12,9 +12,9 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     
     let timerLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:10"
-        label.font = UIFont.boldSystemFont(ofSize: 30)
-        label.textColor = UIColor.red
+        label.text = StringInfo.labelTextWork.rawValue
+        label.font = UIFont.boldSystemFont(ofSize: CGFloat(Font.font))
+        label.textColor = Color.foregroundWorkColor
         label.numberOfLines = 0
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,18 +23,18 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     
     let startButton: UIButton = {
         let startButton = UIButton()
-        startButton.setImage(UIImage(systemName: "play"), for: .normal)
+        startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePlay.rawValue), for: .normal)
         startButton.imageView?.layer.transform = CATransform3DMakeScale(3, 3, 3)
-        startButton.tintColor = UIColor.red
+        startButton.tintColor = Color.foregroundWorkColor
         startButton.translatesAutoresizingMaskIntoConstraints = false
         return startButton
     }()
     
     let cancelButton: UIButton = {
         let cancelButton = UIButton()
-        cancelButton.setImage(UIImage(systemName: "clear"), for: .normal)
+        cancelButton.setImage(UIImage(systemName: StringInfo.cancelButtonImage.rawValue), for: .normal)
         cancelButton.imageView?.layer.transform = CATransform3DMakeScale(3, 3, 3)
-        cancelButton.tintColor = UIColor.red
+        cancelButton.tintColor = Color.foregroundWorkColor
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         return cancelButton
     }()
@@ -42,7 +42,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     var player: AVAudioPlayer! = nil
     var timer = Timer()
     var isTimerStarted = false
-    var time: Double = 10
+    var time = Metric.timeWork
     var isAnimationStarted = false
     var isWorkTime = true
     
@@ -56,8 +56,8 @@ class ViewController: UIViewController, CAAnimationDelegate  {
         super.viewDidLoad()
         
         setConstraints()
-        drawBackLayer(with: backProgressLayer, color: UIColor.gray)
-        drawBackLayer(with: progressLayerWork, color: UIColor.red)
+        drawBackLayer(with: backProgressLayer, color: Color.backgroundColor)
+        drawBackLayer(with: progressLayerWork, color: Color.foregroundWorkColor)
         
         startButton.addTarget(self,
                               action: #selector(startButtonTapped),
@@ -68,69 +68,76 @@ class ViewController: UIViewController, CAAnimationDelegate  {
                                for: .touchUpInside)
     }
     
-    @objc func startButtonTapped() {
-        if isWorkTime {
-            cancelButton.isEnabled = true
-            cancelButton.alpha = 1
-            if !isTimerStarted {
-                startResumeAnimation()
-                startTimer()
-                isTimerStarted = true
-                startButton.setImage(UIImage(systemName: "pause"), for: .normal)
-                startButton.tintColor = UIColor.black
-            } else {
-                pauseAnimation(with: progressLayerWork)
-                timer.invalidate()
-                isTimerStarted = false
-                startButton.setImage(UIImage(systemName: "play"), for: .normal)
-                startButton.tintColor = UIColor.red
-            }
+    func startButtonTrueOperation() {
+        cancelButton.isEnabled = true
+        cancelButton.alpha = 1
+        if !isTimerStarted {
+            startResumeAnimation()
+            startTimer()
+            isTimerStarted = true
+            startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePause.rawValue), for: .normal)
+            startButton.tintColor = UIColor.black
         } else {
-            cancelButton.isEnabled = true
-            cancelButton.alpha = 1
-            if !isTimerStarted {
-                startResumeAnimation()
-                startTimer()
-                isTimerStarted = true
-                startButton.setImage(UIImage(systemName: "pause"), for: .normal)
-                startButton.tintColor = UIColor.black
-            } else {
-                pauseAnimation(with: progressLayerRelax)
-                timer.invalidate()
-                isTimerStarted = false
-                startButton.setImage(UIImage(systemName: "play"), for: .normal)
-                startButton.tintColor = UIColor.green
-            }
+            pauseAnimation(with: progressLayerWork)
+            timer.invalidate()
+            isTimerStarted = false
+            startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePlay.rawValue), for: .normal)
+            startButton.tintColor = UIColor.red
         }
     }
     
-    @objc func cancelButtonTapped() {
-        if isWorkTime {
-            stopAnimation(with: progressLayerWork)
-            cancelButton.isEnabled = false
-            cancelButton.alpha = 0.5
-            
-            timer.invalidate()
-            time = 10
-            isTimerStarted = false
-            timerLabel.text = "00:10"
-            startButton.setImage(UIImage(systemName: "play"), for: .normal)
-            startButton.tintColor = UIColor.red
-            drawBackLayer(with: progressLayerWork, color: UIColor.red)
-            
+    func startButtonFalseOperation() {
+        cancelButton.isEnabled = true
+        cancelButton.alpha = 1
+        if !isTimerStarted {
+            startResumeAnimation()
+            startTimer()
+            isTimerStarted = true
+            startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePause.rawValue), for: .normal)
+            startButton.tintColor = UIColor.black
         } else {
-            stopAnimation(with: progressLayerRelax)
-            cancelButton.isEnabled = false
-            cancelButton.alpha = 0.5
-            
+            pauseAnimation(with: progressLayerRelax)
             timer.invalidate()
-            time = 5
             isTimerStarted = false
-            timerLabel.text = "00:05"
-            startButton.setImage(UIImage(systemName: "play"), for: .normal)
+            startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePlay.rawValue), for: .normal)
             startButton.tintColor = UIColor.green
-            drawBackLayer(with: progressLayerRelax, color: UIColor.green)
         }
+    }
+    
+    @objc func startButtonTapped() {
+        isWorkTime ? startButtonTrueOperation() : startButtonFalseOperation()
+    }
+    
+    func cancelButtonTrueOperation() {
+        stopAnimation(with: progressLayerWork)
+        cancelButton.isEnabled = false
+        cancelButton.alpha = 0.5
+        
+        timer.invalidate()
+        time = Metric.timeWork
+        isTimerStarted = false
+        timerLabel.text = StringInfo.labelTextWork.rawValue
+        startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePlay.rawValue), for: .normal)
+        startButton.tintColor = UIColor.red
+        drawBackLayer(with: progressLayerWork, color: UIColor.red)
+    }
+    
+    func cancelButtonFalseOperation() {
+        stopAnimation(with: progressLayerRelax)
+        cancelButton.isEnabled = false
+        cancelButton.alpha = 0.5
+        
+        timer.invalidate()
+        time = Metric.timeRelax
+        isTimerStarted = false
+        timerLabel.text = StringInfo.labelTextRelax.rawValue
+        startButton.setImage(UIImage(systemName: StringInfo.startButtonImagePlay.rawValue), for: .normal)
+        startButton.tintColor = UIColor.green
+        drawBackLayer(with: progressLayerRelax, color: UIColor.green)
+    }
+    
+    @objc func cancelButtonTapped() {
+        isWorkTime ? cancelButtonTrueOperation() : cancelButtonFalseOperation()
     }
     
     @objc func updateTimer() {
@@ -169,7 +176,7 @@ class ViewController: UIViewController, CAAnimationDelegate  {
     }
     
     func music() {
-        let url = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+        let url = Bundle.main.url(forResource: Sound.name, withExtension: Sound.format)
         player = try! AVAudioPlayer(contentsOf: url!)
         player.play()
     }

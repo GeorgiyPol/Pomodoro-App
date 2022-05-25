@@ -9,20 +9,24 @@ import Foundation
 import UIKit
 
 extension ViewController {
-    func startResumeAnimation() {
-        if isWorkTime {
-            if !isAnimationStarted {
-                startAnimation(with: progressLayerWork, animation: animation)
-            } else {
-                resumeAnimation(with: progressLayerWork)
-            }
+    func resumeAnimationTrueBranch() {
+        if !isAnimationStarted {
+            startAnimation(with: progressLayerWork, animation: animation)
         } else {
-            if !isAnimationStarted {
-                startAnimation(with: progressLayerRelax, animation: animationRelax)
-            } else {
-                resumeAnimation(with: progressLayerRelax)
-            }
+            resumeAnimation(with: progressLayerWork)
         }
+    }
+    
+    func resumeAnimationFalseBranch() {
+        if !isAnimationStarted {
+            startAnimation(with: progressLayerRelax, animation: animationRelax)
+        } else {
+            resumeAnimation(with: progressLayerRelax)
+        }
+    }
+    
+    func startResumeAnimation() {
+        isWorkTime ? resumeAnimationTrueBranch() : resumeAnimationFalseBranch()
     }
     
     func startAnimation(with layerMode: CAShapeLayer, animation: CABasicAnimation) {
