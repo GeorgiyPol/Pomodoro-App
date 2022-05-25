@@ -31,7 +31,7 @@ extension ViewController {
     }
     
     func startTimer() {
-        timer  = Timer.scheduledTimer(timeInterval: 0.01,
+        timer  = Timer.scheduledTimer(timeInterval: Metric.timeInterval,
                                       target: self,
                                       selector: (#selector(updateTimer)),
                                       userInfo: nil,
@@ -48,8 +48,9 @@ extension ViewController {
     func drawBackLayer(with layerMode: CAShapeLayer, color: UIColor) {
         let end = (-CGFloat.pi / 2)
         let start = 2 * CGFloat.pi + end
-        layerMode.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY),
-                                      radius: 150,
+        
+        layerMode.path = UIBezierPath(arcCenter: view.center,
+                                      radius: CGFloat(Radius.radius),
                                       startAngle: start,
                                       endAngle: end, clockwise: false).cgPath
         
@@ -58,6 +59,39 @@ extension ViewController {
         layerMode.fillColor = UIColor.clear.cgColor
         layerMode.lineWidth = 10
         view.layer.addSublayer(layerMode)
+    }
+    
+    enum Metric {
+        static var timeWork: Double = 10
+        static var timeRelax: Double = 5
+        static var timeInterval: Double = 0.01
+    }
+    
+    enum StringInfo: String {
+        case labelTextWork = "00:10"
+        case labelTextRelax = "00:05"
+        case startButtonImagePlay = "play"
+        case startButtonImagePause = "pause"
+        case cancelButtonImage = "clear"
+    }
+    
+    enum Color {
+        static var backgroundColor = UIColor.gray
+        static var foregroundWorkColor = UIColor.red
+        static var foregroundRelaxColor = UIColor.green
+    }
+    
+    enum Sound {
+        static var name = "alarm_sound"
+        static var format = "mp3"
+    }
+    
+    enum Font {
+        static var font = 30
+    }
+    
+    enum Radius {
+        static var radius = 150
     }
     
     enum Constraints  {
