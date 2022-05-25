@@ -11,28 +11,23 @@ import UIKit
 extension ViewController {
     
     func setConstraints() {
+        view.addSubview(timerLabel)
+        timerLabel.translatesAutoresizingMaskIntoConstraints = false
+        timerLabel.topAnchor.constraint(equalTo: view.centerYAnchor, constant: Constraints.centerYAnchor).isActive = true
+        timerLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constraints.leadingAnchor).isActive = true
+        timerLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constraints.trailingAnchor).isActive = true
+        
         view.addSubview(startButton)
-        NSLayoutConstraint.activate([
-            startButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -350),
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.heightAnchor.constraint(equalToConstant: 30),
-            startButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        startButton.topAnchor.constraint(equalTo: timerLabel.topAnchor, constant: Constraints.topAnchorTwo).isActive = true
+        startButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constraints.leadingAnchor).isActive = true
+        startButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constraints.trailingAnchor).isActive = true
         
         view.addSubview(cancelButton)
-        NSLayoutConstraint.activate([
-            cancelButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -410),
-            cancelButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cancelButton.heightAnchor.constraint(equalToConstant: 30),
-            cancelButton.widthAnchor.constraint(equalToConstant: 30)
-        ])
-        
-        view.addSubview(timerLabel)
-        NSLayoutConstraint.activate([
-            timerLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 350),
-            timerLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            timerLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.topAnchor.constraint(equalTo: startButton.topAnchor, constant: Constraints.topAnchor).isActive = true
+        cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Constraints.leadingAnchor).isActive = true
+        cancelButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Constraints.trailingAnchor).isActive = true
     }
     
     func startTimer() {
@@ -63,5 +58,13 @@ extension ViewController {
         layerMode.fillColor = UIColor.clear.cgColor
         layerMode.lineWidth = 10
         view.layer.addSublayer(layerMode)
+    }
+    
+    enum Constraints  {
+        static var centerYAnchor: CGFloat = -30
+        static var topAnchor: CGFloat = 50
+        static var topAnchorTwo: CGFloat = 80
+        static var leadingAnchor: CGFloat = 18
+        static var trailingAnchor: CGFloat = -18
     }
 }
